@@ -1,8 +1,33 @@
+* {
+	font-family: 'Press Start 2P', sans-serif;
+	text-transform: uppercase;
+}
+
+body {
+	background-color: #111;
+}
+
+i {
+	color: white;
+}
+
+h1 {
+	color: white;
+	font-size: 2.5em;
+	padding: 20px 0px;
+}
+
 #board {
-  margin-top: 10px;
+	margin-top: 50px;
+
 }
 
 .box {
-  border: 1px solid black;
-  height: 150px;
+	border: 1px solid white;
+	height: 150px;
+}
+
+.row {
+	padding: 0px;
+	margin: 0px;
 }
