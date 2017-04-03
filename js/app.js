@@ -22,6 +22,8 @@ $(document).ready(function() {
 
 	}
 
+	console.log('turn counter added. no errors yet!');
+
 	// Create a js version of each tile.
 	// Give each tile a value to track if filled (X), filled (O), or empty.
 
@@ -46,6 +48,8 @@ $(document).ready(function() {
 	var tile9 = document.getElementById('tile9');
 		tile9 = 0;
 
+	console.log('tile vars added. no errors yet!');
+
 
   // Check to see where the user clicked, and using "this", 
   // change the css and innerHTML of the corresponding div.
@@ -57,15 +61,32 @@ $(document).ready(function() {
 
   	function changeTile() {
 
-  		if (turn % 2 === 0) {
+  		if (turn % 2 === 0 && // tile === 0) {
 
-			// change the class of this to x
+			// change the class of clicked tile to player1
+
+
+			// change the icon to X after click
+			querySelector('player1').innerHTML = grade;
+
 			// add 1 to the turn counter
+			turn += 1;
+
+			// change the value of clicked tile to 1
 
 
-		} else if (turn % 2 !== 0) {
+
+		} else if (turn % 2 !== 0 && // tile === 0) {
 		
-			turnCounter.innerHTML = "visibility";
+			// change the class of clicked tile to player2
+
+			// change the icon to O after click
+			querySelector('player1').innerHTML = visibility;
+
+			// add 1 to the turn counter
+			turn += 2;
+			
+			// change the value of clicked tile to 2
 
 		} else {
 
@@ -75,9 +96,37 @@ $(document).ready(function() {
   	}
 
 
-
-  // 4. Prevent a box that is clicked on from being clicked on again.
   // 5. Check to see whether three Xs or Os line up using if statements with && or ||
+
+  	if (tile1 === 1 && tile2 === 1 && tile3 === 1 || 
+  		tile4 === 1 && tile5 === 1 && tile6 === 1 || 
+  		tile7 === 1 && tile8 === 1 && tile9 === 1 || 
+  		tile1 === 1 && tile4 === 1 && tile7 === 1 || 
+  		tile2 === 1 && tile5 === 1 && tile8 === 1 || 
+  		tile3 === 1 && tile6 === 1 && tile9 === 1 || 
+  		tile1 === 1 && tile5 === 1 && tile9 === 1 || 
+  		tile3 === 1 && tile5 === 1 && tile7 === 1 ) {
+
+  		// X wins
+
+  	} else 
+
+  	if (tile1 === 2 && tile2 === 2 && tile3 === 2 || 
+  		tile4 === 2 && tile5 === 2 && tile6 === 2 || 
+  		tile7 === 2 && tile8 === 2 && tile9 === 2 || 
+  		tile1 === 2 && tile4 === 2 && tile7 === 2 || 
+  		tile2 === 2 && tile5 === 2 && tile8 === 2 || 
+  		tile3 === 2 && tile6 === 2 && tile9 === 2 || 
+  		tile1 === 2 && tile5 === 2 && tile9 === 2 || 
+  		tile3 === 2 && tile5 === 2 && tile7 === 2 ) {
+
+  		// O wins
+  	
+  	} else if (turn === 9) {
+
+  		// draw.
+  	}
+
   // 6. Add a condition to check for a draw if 9 turns have been played.
   // 7. When the if conditions are met, alert which user has won or if there's a draw.
   // 8. Use the reset button to refresh the board.
