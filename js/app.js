@@ -14,38 +14,46 @@ $(document).ready(function() {
 	// 0 = empty, 1 = X, 2 = O.
 
 	var tile1 = document.getElementById('tile1');
-		tile1 = 0;
+	var tile1Counter = 0;
+
 	var tile2 = document.getElementById('tile2');
-		tile2 = 0;
+	var tile2Counter = 0;
+
 	var tile3 = document.getElementById('tile3');
-		tile3 = 0;
+	var tile3Counter = 0;
+
 	var tile4 = document.getElementById('tile4');
-		tile4 = 0;
+	var tile4Counter = 0;
+
 	var tile5 = document.getElementById('tile5');
-		tile5 = 0;
+	var tile5Counter = 0;
+
 	var tile6 = document.getElementById('tile6');
-		tile6 = 0;
+	var tile6Counter = 0;
+
 	var tile7 = document.getElementById('tile7');
-		tile7 = 0;
+	var tile7Counter = 0;
+
 	var tile8 = document.getElementById('tile8');
-		tile8 = 0;
+	var tile8Counter = 0;
+
 	var tile9 = document.getElementById('tile9');
-		tile9 = 0;
+	var tile9Counter = 0;
 
 	console.log('tile vars added. no errors yet!');
 
 
 	// Check to see where the user clicked and then run a function to update that tile and relevant values.
 
-	document.getElementById('tile1').onclick = changeTile;
-	document.getElementById('tile2').onclick = changeTile;
-	document.getElementById('tile3').onclick = changeTile;
-	document.getElementById('tile4').onclick = changeTile;
-	document.getElementById('tile5').onclick = changeTile;
-	document.getElementById('tile6').onclick = changeTile;
-	document.getElementById('tile7').onclick = changeTile;
-	document.getElementById('tile8').onclick = changeTile;
-	document.getElementById('tile9').onclick = changeTile;
+	tile1.onclick = changeTile();
+	tile2.onclick = changeTile();
+	tile3.onclick = changeTile(3);
+	tile4.onclick = changeTile(4);
+	tile5.onclick = changeTile(5);
+	tile6.onclick = changeTile(6);
+	tile7.onclick = changeTile(7);
+	tile8.onclick = changeTile(8);
+	tile9.onclick = changeTile(9);
 
 	// Create the function to run when called.
 
@@ -73,8 +81,6 @@ $(document).ready(function() {
 
   		// Check for winner
   		checkForWinner();
-
-  		console.log('checked for winner');
 
 
   	} else if (turn % 2 !== 0 && tile1 === 0) {
@@ -230,7 +236,7 @@ $(document).ready(function() {
 		  				}
 				}
 	  	
-	  	} else if (turn === 9 && winner != 0 && winner != 1) {
+	  	} else if (turn === 9 && winner === -1) {
 
 	  		// Draw Modal
 
