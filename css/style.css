@@ -60,11 +60,11 @@ button:active {
 }
 
 .player1 {
-	background-color: blue;
+	background-color: #eca1b1;
 }
 
 .player2 {
-	background-color: red;
+	background-color: #a1ece8;
 }
 
 /*CSS classes for Win and Draw modals*/
