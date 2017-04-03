@@ -57,7 +57,7 @@ $(document).ready(function() {
   // X or an O.
 
   	var gameBoard = document.getElementById('board');
-  	gameBoard.on('click', changeTile);
+  	gameBoard.addEventListener('click', changeTile);
 
   	function changeTile() {
 
@@ -97,6 +97,8 @@ $(document).ready(function() {
 
 
   // 5. Check to see whether three Xs or Os line up using if statements with && or ||
+  // 6. Add a condition to check for a draw if 9 turns have been played.
+  // 7. When the if conditions are met, alert which user has won or if there's a draw.
 
   	if (tile1 === 1 && tile2 === 1 && tile3 === 1 || 
   		tile4 === 1 && tile5 === 1 && tile6 === 1 || 
@@ -107,7 +109,28 @@ $(document).ready(function() {
   		tile1 === 1 && tile5 === 1 && tile9 === 1 || 
   		tile3 === 1 && tile5 === 1 && tile7 === 1 ) {
 
-  		// X wins
+  		// Player X Wins Modal (pulled from memory game)
+
+      	// Get the modal
+      	
+			var modal = document.getElementById('myModalSuccess');
+			modal.style.display = "block";
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementById('closeSuccess');
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			    modal.style.display = "none";
+			    resetCards();
+			}
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			        resetCards();
+	  				}
+			}
 
   	} else 
 
@@ -120,16 +143,64 @@ $(document).ready(function() {
   		tile1 === 2 && tile5 === 2 && tile9 === 2 || 
   		tile3 === 2 && tile5 === 2 && tile7 === 2 ) {
 
-  		// O wins
+  		// Player O Wins Modal
+
+      	// Get the modal
+      	
+			var modal = document.getElementById('myModalSuccess');
+			modal.style.display = "block";
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementById('closeSuccess');
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			    modal.style.display = "none";
+			    resetCards();
+			}
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			        resetCards();
+	  				}
+			}
   	
   	} else if (turn === 9) {
 
-  		// draw.
+  		// Draw Modal
+
+      	// Get the modal
+      	
+			var modal = document.getElementById('myModalSuccess');
+			modal.style.display = "block";
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementById('closeSuccess');
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			    modal.style.display = "none";
+			    resetCards();
+			}
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			        resetCards();
+	  				}
+			}
   	}
 
-  // 6. Add a condition to check for a draw if 9 turns have been played.
-  // 7. When the if conditions are met, alert which user has won or if there's a draw.
   // 8. Use the reset button to refresh the board.
+
+  document.getElementById('reset').addEventListener('click', resetBoard);
+
+  function resetBoard() {
+
+  	window.location.reload(true);
+
+  }
 
 });
 
@@ -152,24 +223,25 @@ $(document).ready(function() {
 
 
 
-// Player X Wins Modal from memory card game (For later)
+		// Player X Wins Modal from memory card game (For later)
 
       	// Get the modal
-			// var modal = document.getElementById('myModalSuccess');
-			// modal.style.display = "block";
 
-			// // Get the <span> element that closes the modal
-			// var span = document.getElementById('closeSuccess');
+			var modal = document.getElementById('myModalSuccess');
+			modal.style.display = "block";
 
-			// // When the user clicks on <span> (x), close the modal
-			// span.onclick = function() {
-			//     modal.style.display = "none";
-			//     resetCards();
-			// }
-			// // When the user clicks anywhere outside of the modal, close it
-			// window.onclick = function(event) {
-			//     if (event.target == modal) {
-			//         modal.style.display = "none";
-			//         resetCards();
-	  		//		}
-			// }
+			// Get the <span> element that closes the modal
+			var span = document.getElementById('closeSuccess');
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			    modal.style.display = "none";
+			    resetCards();
+			}
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			        resetCards();
+	  				}
+			}
