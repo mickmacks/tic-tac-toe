@@ -1,5 +1,5 @@
+// Set a variable to track the current turn
 var turn = 0;
-var winner = -1;
 
 // wait for the DOM to finish loading
 $(document).ready(function() {
@@ -9,171 +9,167 @@ $(document).ready(function() {
   // all code to manipulate the DOM goes inside this function
 
 	// Create a js version of each tile.
-	// Give each tile a value to track if filled (X), filled (O), or empty.
+	// Give each tile a key value by putting them in an array.
 
-	// 0 = empty, 1 = X, 2 = O.
+	var tiles = [];
+	tiles.push(document.getElementById('tile1')); // = 0 = tiles[0]
+	tiles.push(document.getElementById('tile2')); // = 1
+	tiles.push(document.getElementById('tile3')); 
+	tiles.push(document.getElementById('tile4'));
+	tiles.push(document.getElementById('tile5'));
+	tiles.push(document.getElementById('tile6'));
+	tiles.push(document.getElementById('tile7'));
+	tiles.push(document.getElementById('tile8'));
+	tiles.push(document.getElementById('tile9'));
 
-	var tile1 = document.getElementById('tile1');
-	var tile1Counter = 0;
+	// Create a key and value pair to check if each tile is empty (undefined), 
+	// belongs to player 1 (=1) or belongs to player 2 (=2)
 
-	var tile2 = document.getElementById('tile2');
-	var tile2Counter = 0;
-
-	var tile3 = document.getElementById('tile3');
-	var tile3Counter = 0;
-
-	var tile4 = document.getElementById('tile4');
-	var tile4Counter = 0;
-
-	var tile5 = document.getElementById('tile5');
-	var tile5Counter = 0;
-
-	var tile6 = document.getElementById('tile6');
-	var tile6Counter = 0;
-
-	var tile7 = document.getElementById('tile7');
-	var tile7Counter = 0;
-
-	var tile8 = document.getElementById('tile8');
-	var tile8Counter = 0;
-
-	var tile9 = document.getElementById('tile9');
-	var tile9Counter = 0;
-
-	console.log('tile vars added. no errors yet!');
+	var tilesCount = new Array(tiles.length);
 
 
-	// Check to see where the user clicked and then run a function to update that tile and relevant values.
+	// Add event listeners for each tile and tie its callback function to
+	// a change tile function. Pass in the tile's key as the parameter.
 
-	tile1.onclick = changeTile();
-	tile2.onclick = changeTile();
-	tile3.onclick = changeTile(3);
-	tile4.onclick = changeTile(4);
-	tile5.onclick = changeTile(5);
-	tile6.onclick = changeTile(6);
-	tile7.onclick = changeTile(7);
-	tile8.onclick = changeTile(8);
-	tile9.onclick = changeTile(9);
+	tiles[0].addEventListener('click', function() {
+		changeTile(0)
+	});
+
+	tiles[1].addEventListener('click', function() {
+		changeTile(1)
+	});
+
+	tiles[2].addEventListener('click', function() {
+		changeTile(2)
+	});
+
+	tiles[3].addEventListener('click', function() {
+		changeTile(3)
+	});
+
+	tiles[4].addEventListener('click', function() {
+		changeTile(4)
+	});	
+
+	tiles[5].addEventListener('click', function() {
+		changeTile(5)
+	});
+
+	tiles[6].addEventListener('click', function() {
+		changeTile(6)
+	});
+
+	tiles[7].addEventListener('click', function() {
+		changeTile(7)
+	});
+
+	tiles[8].addEventListener('click', function() {
+		changeTile(8)
+	});
 
 	// Create the function to run when called.
 
-	function changeTile() {
+	function changeTile(tileIndex) {
 
-		// Check if the corresponding value of the clicked tile is 0
+		// Create a variable to store the current index number 
+		var currTile = tiles[tileIndex];
 
-  		if (turn % 2 === 0 && tile1 === 0) {
+		// Create a variable to update after clicks to show who now owns the tile.
+		var currTileCount = tilesCount[tileIndex];
 
-  		// Change the class of tile 1 to display an X
-  		document.getElementById('tile1').innerHTML = '<i class="medium material-icons valign center-block">grade</i>'
+		// Add an alert before a tile is updated if the tile already has a value.
 
-  		// set the new class
+		if (currTileCount > 0) {
+			alert('This spot is taken :(');
+			return;
+		}
 
-  		document.getElementById('tile1').className = 'player1 col m4 valign-wrapper box';
+		// Update CSS styles, HTML and JS values if it's player 1's turn.
 
-  		// change player turn
-  		document.getElementById('turnCounter').innerHTML = "visibility";
+		if (turn % 2 === 0) {
 
-  		// Update the value of this tile to 1.
-  		tile1 += 1;
+	  		// Change the class of the tile to show P1's mark
+	  		currTile.innerHTML = '<i class="medium material-icons valign center-block">grade</i>'
 
-  		// Add 1 to the turn counter.
-  		turn++;
+	  		// Set the tile to P1 class
+	  		currTile.className = 'player1 col m4 valign-wrapper box';
 
-  		// Check for winner
-  		checkForWinner();
+	  		// change player turn
+	  		document.getElementById('turnCounter').innerHTML = "visibility";
+
+	  		// Update the value of this tile to 1.
+	  		tilesCount[tileIndex] = 1;
+
+	  		// Add 1 to the turn counter.
+	  		turn++;
+
+	  		// Check for winner
+	  		checkForWinner();
 
 
-  	} else if (turn % 2 !== 0 && tile1 === 0) {
+	  	} else if (turn % 2 !== 0) {
 
-  		// Change the class of tile 1 to display an O
-  		document.getElementById('tile1').innerHTML = '<i class="medium material-icons valign center-block">visibility</i>'
+	  		// Change the class of the tile to show P2's mark
+	  		currTile.innerHTML = '<i class="medium material-icons valign center-block">visibility</i>'
 
-  		// set the new class
+	  		// set the tile to P2 class
+	  		currTile.className = 'player2 col m4 valign-wrapper box';
 
-  		document.getElementById('tile1').className = 'player2 col m4 valign-wrapper box';
+	  		// change player turn
+	  		document.getElementById('turnCounter').innerHTML = "grade";
 
-  		// change player turn
-  		document.getElementById('turnCounter').innerHTML = "grade";
+	  		// Update the value of this tile to 2.
+	  		tilesCount[tileIndex] = 2;
 
-  		// Update the value of this tile to 1.
-  		tile1 += 2;
+	  		// Add 1 to the turn counter.
+	  		turn++;
 
-  		// Add 1 to the turn counter.
-  		turn++;
+	  		// Check for winner
+	  		checkForWinner();
+	  		
+	  	} else if ( tilesCount[0] > 0 && tilesCount[1] > 0 && tilesCount[2] > 0 && 
+	  				tilesCount[3] > 0 && tilesCount[4] > 0 && tilesCount[5] > 0 && 
+	  				tilesCount[6] > 0 && tilesCount[7] > 0 && tilesCount[8] > 0) {
 
-   		// Check for winner
-  		checkForWinner();
+	  		// Draw Modal
 
-  	} else {
+	      	// Get the modal
+	      	
+				var modal = document.getElementById('draw');
+				modal.style.display = "block";
 
-  		alert('This spot is taken :(');
+				// Get the <span> element that closes the modal
+				var span = document.getElementById('drawClose');
+
+				// When the user clicks on <span> (x), close the modal
+				span.onclick = function() {
+				    modal.style.display = "none";
+				    window.location.reload(true);
+				}
+				// When the user clicks anywhere outside of the modal, close it
+				window.onclick = function(event) {
+				    if (event.target == modal) {
+				        modal.style.display = "none";
+				        window.location.reload(true);
+		  			}
+				}
+	  	}
   	}
-  	
-  }
 
- // document.getElementById('tile2').onclick = changeTile2;
-
- //  function changeTile2() {
-
- //  	if (turn % 2 === 0 && tile2 === 0) {
-
- //  		// Change the class of tile 1 to display an X
- //  		document.getElementById('tile2').innerHTML = '<i class="medium material-icons valign center-block">grade</i>'
-
- //  		// set the new class
-
- //  		document.getElementById('tile2').className = 'player1 col m4 valign-wrapper box';
-
- //  		// change player turn
- //  		document.getElementById('turnCounter').innerHTML = "visibility";
-
- //  		// Update the value of this tile to 1.
- //  		tile2 += 1;
-
- //  		// Add 1 to the turn counter.
- //  		turn++;
-
-
- //  	} else if (turn % 2 !== 0 && tile2 === 0) {
-
- //  		// Change the class of tile 1 to display an O
- //  		document.getElementById('tile2').innerHTML = '<i class="medium material-icons valign center-block">visibility</i>'
-
- //  		// set the new class
-
- //  		document.getElementById('tile2').className = 'player2 col m4 valign-wrapper box';
-
- //  		// change player turn
- //  		document.getElementById('turnCounter').innerHTML = "grade";
-
- //  		// Update the value of this tile to 1.
- //  		tile2 += 2;
-
- //  		// Add 1 to the turn counter.
- //  		turn++;
-
- //  	} else {
-
- //  		alert('This spot is taken :(');
- //  	}
-  	
- //  }
-
-
-  // 5. Check to see whether three Xs or Os line up using if statements with && or ||
-  // 6. Add a condition to check for a draw if 9 turns have been played.
-  // 7. When the if conditions are met, alert which user has won or if there's a draw.
+  // Check to see whether three Xs or Os line up using if statements with && or ||
+  // Add a condition to check for a draw if 9 turns have been played.
+  // When the if conditions are met, alert which user has won or if there's a draw.
 
   	function checkForWinner() {
 
-	  	if (tile1 === 1 && tile2 === 1 && tile3 === 1 || 
-	  		tile4 === 1 && tile5 === 1 && tile6 === 1 || 
-	  		tile7 === 1 && tile8 === 1 && tile9 === 1 || 
-	  		tile1 === 1 && tile4 === 1 && tile7 === 1 || 
-	  		tile2 === 1 && tile5 === 1 && tile8 === 1 || 
-	  		tile3 === 1 && tile6 === 1 && tile9 === 1 || 
-	  		tile1 === 1 && tile5 === 1 && tile9 === 1 || 
-	  		tile3 === 1 && tile5 === 1 && tile7 === 1 ) {
+	  	if (tilesCount[0] === 1 && tilesCount[1] === 1 && tilesCount[2] === 1 || 
+	  		tilesCount[3] === 1 && tilesCount[4] === 1 && tilesCount[5] === 1 || 
+	  		tilesCount[6] === 1 && tilesCount[7] === 1 && tilesCount[8] === 1 || 
+	  		tilesCount[0] === 1 && tilesCount[3] === 1 && tilesCount[6] === 1 || 
+	  		tilesCount[1] === 1 && tilesCount[4] === 1 && tilesCount[7] === 1 || 
+	  		tilesCount[2] === 1 && tilesCount[5] === 1 && tilesCount[8] === 1 || 
+	  		tilesCount[0] === 1 && tilesCount[4] === 1 && tilesCount[8] === 1 || 
+	  		tilesCount[2] === 1 && tilesCount[4] === 1 && tilesCount[6] === 1 ) {
 
 	  		// Player X Wins Modal (pulled from memory game)
 
@@ -202,14 +198,14 @@ $(document).ready(function() {
 
 	  	} else 
 
-	  	if (tile1 === 2 && tile2 === 2 && tile3 === 2 || 
-	  		tile4 === 2 && tile5 === 2 && tile6 === 2 || 
-	  		tile7 === 2 && tile8 === 2 && tile9 === 2 || 
-	  		tile1 === 2 && tile4 === 2 && tile7 === 2 || 
-	  		tile2 === 2 && tile5 === 2 && tile8 === 2 || 
-	  		tile3 === 2 && tile6 === 2 && tile9 === 2 || 
-	  		tile1 === 2 && tile5 === 2 && tile9 === 2 || 
-	  		tile3 === 2 && tile5 === 2 && tile7 === 2 ) {
+	  	if (tilesCount[0] === 2 && tilesCount[1] === 2 && tilesCount[2] === 2 || 
+	  		tilesCount[3] === 2 && tilesCount[4] === 2 && tilesCount[5] === 2 || 
+	  		tilesCount[6] === 2 && tilesCount[7] === 2 && tilesCount[8] === 2 || 
+	  		tilesCount[0] === 2 && tilesCount[3] === 2 && tilesCount[6] === 2 || 
+	  		tilesCount[1] === 2 && tilesCount[4] === 2 && tilesCount[7] === 2 || 
+	  		tilesCount[2] === 2 && tilesCount[5] === 2 && tilesCount[8] === 2 || 
+	  		tilesCount[0] === 2 && tilesCount[4] === 2 && tilesCount[8] === 2 || 
+	  		tilesCount[2] === 2 && tilesCount[4] === 2 && tilesCount[6] === 2 ) {
 
 	  		// Player O Wins Modal
 
@@ -233,35 +229,11 @@ $(document).ready(function() {
 				    if (event.target == modal) {
 				        modal.style.display = "none";
 				        window.location.reload(true);
-		  				}
+		  			}
 				}
-	  	
-	  	} else if (turn === 9 && winner === -1) {
+	  		}
+  	}	
 
-	  		// Draw Modal
-
-	      	// Get the modal
-	      	
-				var modal = document.getElementById('draw');
-				modal.style.display = "block";
-
-				// Get the <span> element that closes the modal
-				var span = document.getElementById('drawClose');
-
-				// When the user clicks on <span> (x), close the modal
-				span.onclick = function() {
-				    modal.style.display = "none";
-				    window.location.reload(true);
-				}
-				// When the user clicks anywhere outside of the modal, close it
-				window.onclick = function(event) {
-				    if (event.target == modal) {
-				        modal.style.display = "none";
-				        window.location.reload(true);
-		  				}
-				}
-	  	}
-  	}
 
     // 8. Use the reset button to refresh the board.
 
